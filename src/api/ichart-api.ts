@@ -284,6 +284,16 @@ export interface IChartApiBase<HorzScaleItem = Time> {
 	unsubscribeCrosshairMove(handler: MouseEventHandler<HorzScaleItem>): void;
 
 	/**
+	 * Set crosshair programmatically
+	 *
+	 * @example
+	 * ```js
+	 * chart.setCrosshairXY(xCoordinate,yCoordinate,isVisible)
+	 * ```
+	 */
+	setCrosshairXY(x: number,y: number,visible: boolean): void;
+
+	/**
 	 * Returns API to manipulate a price scale.
 	 *
 	 * @param priceScaleId - ID of the price scale.

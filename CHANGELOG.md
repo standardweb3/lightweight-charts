@@ -3,4 +3,6 @@
 ## 2023-08-18
 
 Modificaiton to add feature for programatic crosshair configuration is applied.
-mitigate all those tedious useless tslint problems.
+resolve lint in ts codes.
+remove website.
+increase size limit

@@ -165,8 +165,8 @@ export class ChartApi<HorzScaleItem> implements IChartApiBase<HorzScaleItem>, Da
 		this._timeScaleApi = new TimeScaleApi(model, this._chartWidget.timeAxisWidget(), this._horzScaleBehavior);
 	}
 
-	public setCrosshairXY(x: number,y: number,visible: boolean): void {
-		this._chartWidget.paneWidgets()[0].setCrosshair(x,y,visible);
+	public setCrosshairXY(x: number, y: number, visible: boolean): void {
+		this._chartWidget.paneWidgets()[0].setCrosshair(x, y, visible);
 	}
 
 	public remove(): void {

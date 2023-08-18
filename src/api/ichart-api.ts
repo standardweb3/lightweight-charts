@@ -288,10 +288,10 @@ export interface IChartApiBase<HorzScaleItem = Time> {
 	 *
 	 * @example
 	 * ```js
-	 * chart.setCrosshairXY(xCoordinate,yCoordinate,isVisible)
+	 * chart.setCrosshairXY(xCoordinate, yCoordinate, isVisible);
 	 * ```
 	 */
-	setCrosshairXY(x: number,y: number,visible: boolean): void;
+	setCrosshairXY(x: number, y: number, visible: boolean): void;
 
 	/**
 	 * Returns API to manipulate a price scale.

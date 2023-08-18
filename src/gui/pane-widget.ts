@@ -6,35 +6,35 @@ import {
 	Size,
 	size,
 	tryCreateCanvasRenderingTarget2D,
-} from "fancy-canvas";
+} from 'fancy-canvas';
 
-import { ensureNotNull } from "../helpers/assertions";
-import { clearRect, clearRectWithGradient } from "../helpers/canvas-helpers";
-import { Delegate } from "../helpers/delegate";
-import { IDestroyable } from "../helpers/idestroyable";
-import { ISubscription } from "../helpers/isubscription";
+import { ensureNotNull } from '../helpers/assertions';
+import { clearRect, clearRectWithGradient } from '../helpers/canvas-helpers';
+import { Delegate } from '../helpers/delegate';
+import { IDestroyable } from '../helpers/idestroyable';
+import { ISubscription } from '../helpers/isubscription';
 
-import { IChartModelBase, TrackingModeExitMode } from "../model/chart-model";
-import { Coordinate } from "../model/coordinate";
-import { IDataSource } from "../model/idata-source";
-import { InvalidationLevel } from "../model/invalidate-mask";
-import { KineticAnimation } from "../model/kinetic-animation";
-import { Pane } from "../model/pane";
-import { Point } from "../model/point";
-import { TimePointIndex } from "../model/time-data";
-import { TouchMouseEventData } from "../model/touch-mouse-event-data";
-import { IPaneRenderer } from "../renderers/ipane-renderer";
-import { IPaneView } from "../views/pane/ipane-view";
+import { IChartModelBase, TrackingModeExitMode } from '../model/chart-model';
+import { Coordinate } from '../model/coordinate';
+import { IDataSource } from '../model/idata-source';
+import { InvalidationLevel } from '../model/invalidate-mask';
+import { KineticAnimation } from '../model/kinetic-animation';
+import { Pane } from '../model/pane';
+import { Point } from '../model/point';
+import { TimePointIndex } from '../model/time-data';
+import { TouchMouseEventData } from '../model/touch-mouse-event-data';
+import { IPaneRenderer } from '../renderers/ipane-renderer';
+import { IPaneView } from '../views/pane/ipane-view';
 
-import { createBoundCanvas } from "./canvas-utils";
-import { IChartWidgetBase } from "./chart-widget";
+import { createBoundCanvas } from './canvas-utils';
+import { IChartWidgetBase } from './chart-widget';
 import {
 	drawBackground,
 	drawForeground,
 	DrawFunction,
 	drawSourcePaneViews,
-} from "./draw-functions";
-import { IPaneViewsGetter } from "./ipane-view-getter";
+} from './draw-functions';
+import { IPaneViewsGetter } from './ipane-view-getter';
 import {
 	MouseEventHandler,
 	MouseEventHandlerEventBase,
@@ -43,9 +43,9 @@ import {
 	MouseEventHandlerTouchEvent,
 	Position,
 	TouchMouseEvent,
-} from "./mouse-event-handler";
-import { hitTestPane, HitTestResult } from "./pane-hit-test";
-import { PriceAxisWidget, PriceAxisWidgetSide } from "./price-axis-widget";
+} from './mouse-event-handler';
+import { hitTestPane, HitTestResult } from './pane-hit-test';
+import { PriceAxisWidget, PriceAxisWidgetSide } from './price-axis-widget';
 
 const enum KineticScrollConstants {
 	MinScrollSpeed = 0.2,
@@ -128,21 +128,21 @@ export class PaneWidget implements IDestroyable, MouseEventHandlers {
 			.onDestroyed()
 			.subscribe(this._onStateDestroyed.bind(this), this, true);
 
-		this._paneCell = document.createElement("td");
-		this._paneCell.style.padding = "0";
-		this._paneCell.style.position = "relative";
+		this._paneCell = document.createElement('td');
+		this._paneCell.style.padding = '0';
+		this._paneCell.style.position = 'relative';
 
-		const paneWrapper = document.createElement("div");
-		paneWrapper.style.width = "100%";
-		paneWrapper.style.height = "100%";
-		paneWrapper.style.position = "relative";
-		paneWrapper.style.overflow = "hidden";
+		const paneWrapper = document.createElement('div');
+		paneWrapper.style.width = '100%';
+		paneWrapper.style.height = '100%';
+		paneWrapper.style.position = 'relative';
+		paneWrapper.style.overflow = 'hidden';
 
-		this._leftAxisCell = document.createElement("td");
-		this._leftAxisCell.style.padding = "0";
+		this._leftAxisCell = document.createElement('td');
+		this._leftAxisCell.style.padding = '0';
 
-		this._rightAxisCell = document.createElement("td");
-		this._rightAxisCell.style.padding = "0";
+		this._rightAxisCell = document.createElement('td');
+		this._rightAxisCell.style.padding = '0';
 
 		this._paneCell.appendChild(paneWrapper);
 
@@ -154,10 +154,10 @@ export class PaneWidget implements IDestroyable, MouseEventHandlers {
 			this._canvasSuggestedBitmapSizeChangedHandler
 		);
 		const canvas = this._canvasBinding.canvasElement;
-		canvas.style.position = "absolute";
-		canvas.style.zIndex = "1";
-		canvas.style.left = "0";
-		canvas.style.top = "0";
+		canvas.style.position = 'absolute';
+		canvas.style.zIndex = '1';
+		canvas.style.left = '0';
+		canvas.style.top = '0';
 
 		this._topCanvasBinding = createBoundCanvas(
 			paneWrapper,
@@ -167,12 +167,12 @@ export class PaneWidget implements IDestroyable, MouseEventHandlers {
 			this._topCanvasSuggestedBitmapSizeChangedHandler
 		);
 		const topCanvas = this._topCanvasBinding.canvasElement;
-		topCanvas.style.position = "absolute";
-		topCanvas.style.zIndex = "2";
-		topCanvas.style.left = "0";
-		topCanvas.style.top = "0";
+		topCanvas.style.position = 'absolute';
+		topCanvas.style.zIndex = '2';
+		topCanvas.style.left = '0';
+		topCanvas.style.top = '0';
 
-		this._rowElement = document.createElement("tr");
+		this._rowElement = document.createElement('tr');
 		this._rowElement.appendChild(this._leftAxisCell);
 		this._rowElement.appendChild(this._paneCell);
 		this._rowElement.appendChild(this._rightAxisCell);
@@ -474,7 +474,7 @@ export class PaneWidget implements IDestroyable, MouseEventHandlers {
 
 	public setPriceAxisSize(width: number, position: PriceAxisWidgetSide): void {
 		const priceAxisWidget =
-			position === "left"
+			position === 'left'
 				? this._leftPriceAxisWidget
 				: this._rightPriceAxisWidget;
 		ensureNotNull(priceAxisWidget).setSize(
@@ -496,8 +496,8 @@ export class PaneWidget implements IDestroyable, MouseEventHandlers {
 		this._canvasBinding.resizeCanvasElement(newSize);
 		this._topCanvasBinding.resizeCanvasElement(newSize);
 		this._isSettingSize = false;
-		this._paneCell.style.width = newSize.width + "px";
-		this._paneCell.style.height = newSize.height + "px";
+		this._paneCell.style.width = newSize.width + 'px';
+		this._paneCell.style.height = newSize.height + 'px';
 	}
 
 	public recalculatePriceScales(): void {
@@ -746,7 +746,7 @@ export class PaneWidget implements IDestroyable, MouseEventHandlers {
 				this,
 				chart.options(),
 				rendererOptionsProvider,
-				"left"
+				'left'
 			);
 			this._leftAxisCell.appendChild(this._leftPriceAxisWidget.getElement());
 		}
@@ -755,7 +755,7 @@ export class PaneWidget implements IDestroyable, MouseEventHandlers {
 				this,
 				chart.options(),
 				rendererOptionsProvider,
-				"right"
+				'right'
 			);
 			this._rightAxisCell.appendChild(this._rightPriceAxisWidget.getElement());
 		}

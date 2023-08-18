@@ -1,45 +1,45 @@
-/// <reference types="_build-time-constants" />
+/// <reference types='_build-time-constants' />
 
-import { assert, ensureNotNull } from "../helpers/assertions";
-import { gradientColorAtPercent } from "../helpers/color";
-import { Delegate } from "../helpers/delegate";
-import { IDestroyable } from "../helpers/idestroyable";
-import { ISubscription } from "../helpers/isubscription";
-import { DeepPartial, merge } from "../helpers/strict-type-checks";
+import { assert, ensureNotNull } from '../helpers/assertions';
+import { gradientColorAtPercent } from '../helpers/color';
+import { Delegate } from '../helpers/delegate';
+import { IDestroyable } from '../helpers/idestroyable';
+import { ISubscription } from '../helpers/isubscription';
+import { DeepPartial, merge } from '../helpers/strict-type-checks';
 
-import { PriceAxisViewRendererOptions } from "../renderers/iprice-axis-view-renderer";
-import { PriceAxisRendererOptionsProvider } from "../renderers/price-axis-renderer-options-provider";
+import { PriceAxisViewRendererOptions } from '../renderers/iprice-axis-view-renderer';
+import { PriceAxisRendererOptionsProvider } from '../renderers/price-axis-renderer-options-provider';
 
-import { Coordinate } from "./coordinate";
-import { Crosshair, CrosshairOptions } from "./crosshair";
+import { Coordinate } from './coordinate';
+import { Crosshair, CrosshairOptions } from './crosshair';
 import {
 	DefaultPriceScaleId,
 	isDefaultPriceScale,
-} from "./default-price-scale";
-import { GridOptions } from "./grid";
-import { ICustomSeriesPaneView } from "./icustom-series";
-import { IHorzScaleBehavior } from "./ihorz-scale-behavior";
+} from './default-price-scale';
+import { GridOptions } from './grid';
+import { ICustomSeriesPaneView } from './icustom-series';
+import { IHorzScaleBehavior } from './ihorz-scale-behavior';
 import {
 	InvalidateMask,
 	InvalidationLevel,
 	ITimeScaleAnimation,
-} from "./invalidate-mask";
-import { IPriceDataSource } from "./iprice-data-source";
-import { ColorType, LayoutOptions } from "./layout-options";
+} from './invalidate-mask';
+import { IPriceDataSource } from './iprice-data-source';
+import { ColorType, LayoutOptions } from './layout-options';
 import {
 	LocalizationOptions,
 	LocalizationOptionsBase,
-} from "./localization-options";
-import { Magnet } from "./magnet";
-import { DEFAULT_STRETCH_FACTOR, Pane } from "./pane";
-import { Point } from "./point";
-import { PriceScale, PriceScaleOptions } from "./price-scale";
-import { ISeries, Series, SeriesOptionsInternal } from "./series";
-import { SeriesOptionsMap, SeriesType } from "./series-options";
-import { LogicalRange, TimePointIndex, TimeScalePoint } from "./time-data";
-import { HorzScaleOptions, ITimeScale, TimeScale } from "./time-scale";
-import { TouchMouseEventData } from "./touch-mouse-event-data";
-import { Watermark, WatermarkOptions } from "./watermark";
+} from './localization-options';
+import { Magnet } from './magnet';
+import { DEFAULT_STRETCH_FACTOR, Pane } from './pane';
+import { Point } from './point';
+import { PriceScale, PriceScaleOptions } from './price-scale';
+import { ISeries, Series, SeriesOptionsInternal } from './series';
+import { SeriesOptionsMap, SeriesType } from './series-options';
+import { LogicalRange, TimePointIndex, TimeScalePoint } from './time-data';
+import { HorzScaleOptions, ITimeScale, TimeScale } from './time-scale';
+import { TouchMouseEventData } from './touch-mouse-event-data';
+import { Watermark, WatermarkOptions } from './watermark';
 
 /**
  * Represents options for how the chart is scrolled by the mouse and touch gestures.
@@ -128,7 +128,7 @@ export interface KineticScrollOptions {
 
 type HandleScaleOptionsInternal = Omit<
 	HandleScaleOptions,
-	"axisPressedMouseMove" | "axisDoubleClickReset"
+	'axisPressedMouseMove' | 'axisDoubleClickReset'
 > & {
 	/** @public */
 	axisPressedMouseMove: AxisPressedMouseMoveOptions;
@@ -209,7 +209,7 @@ export type VisiblePriceScaleOptions = PriceScaleOptions;
  */
 export type OverlayPriceScaleOptions = Omit<
 	PriceScaleOptions,
-	"visible" | "autoScale"
+	'visible' | 'autoScale'
 >;
 
 /**
@@ -363,7 +363,7 @@ export interface ChartOptionsImpl<HorzScaleItem> extends ChartOptionsBase {
 
 export type ChartOptionsInternalBase = Omit<
 	ChartOptionsBase,
-	"handleScroll" | "handleScale" | "layout"
+	'handleScroll' | 'handleScale' | 'layout'
 > & {
 	/** @public */
 	handleScroll: HandleScrollOptions;
@@ -375,7 +375,7 @@ export type ChartOptionsInternalBase = Omit<
 
 export type ChartOptionsInternal<HorzScaleItem> = Omit<
 	ChartOptionsImpl<HorzScaleItem>,
-	"handleScroll" | "handleScale" | "layout"
+	'handleScroll' | 'handleScale' | 'layout'
 > & {
 	/** @public */
 	handleScroll: HandleScrollOptions;
@@ -461,8 +461,7 @@ export interface IChartModelBase {
 }
 
 export class ChartModel<HorzScaleItem>
-	implements IDestroyable, IChartModelBase
-{
+	implements IDestroyable, IChartModelBase {
 	private readonly _options: ChartOptionsInternal<HorzScaleItem>;
 	private readonly _invalidateHandler: InvalidateHandler;
 
@@ -607,7 +606,7 @@ export class ChartModel<HorzScaleItem>
 		const res = this.findPriceScale(priceScaleId);
 
 		if (res === null) {
-			if (process.env.NODE_ENV === "development") {
+			if (process.env.NODE_ENV === 'development') {
 				throw new Error(
 					`Trying to apply price scale options with incorrect ID: ${priceScaleId}`
 				);
@@ -995,7 +994,7 @@ export class ChartModel<HorzScaleItem>
 		const pane = this.paneForSource(series);
 
 		const seriesIndex = this._serieses.indexOf(series);
-		assert(seriesIndex !== -1, "Series not found");
+		assert(seriesIndex !== -1, 'Series not found');
 
 		this._serieses.splice(seriesIndex, 1);
 		ensureNotNull(pane).removeDataSource(series);
